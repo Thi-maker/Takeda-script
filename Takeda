@@ -1,0 +1,114 @@
+-- LocalScript em StarterPlayerScripts
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- GUI principal
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "MKPanel"
+screenGui.Parent = player:WaitForChild("PlayerGui")
+screenGui.ResetOnSpawn = false
+
+-- Frame principal (painel)
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 300, 0, 180)
+frame.Position = UDim2.new(0.5, -150, 0.4, 0)
+frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+frame.BorderSizePixel = 0
+frame.Visible = true
+frame.Parent = screenGui
+
+-- Bordas douradas
+local uiStroke = Instance.new("UIStroke")
+uiStroke.Thickness = 3
+uiStroke.Color = Color3.fromRGB(212, 175, 55)
+uiStroke.Parent = frame
+
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 20)
+uiCorner.Parent = frame
+
+-- Título Mortal Kombat
+local titulo = Instance.new("TextLabel")
+titulo.Size = UDim2.new(1, 0, 0, 40)
+titulo.BackgroundTransparency = 1
+titulo.Text = "⚡ Mortal Kombat ⚡"
+titulo.TextColor3 = Color3.fromRGB(255, 0, 0)
+titulo.Font = Enum.Font.Arcade
+titulo.TextScaled = true
+titulo.Parent = frame
+
+-- Botão Takeda
+local botaoTakeda = Instance.new("TextButton")
+botaoTakeda.Size = UDim2.new(0, 200, 0, 50)
+botaoTakeda.Position = UDim2.new(0.5, -100, 0.5, -25)
+botaoTakeda.BackgroundColor3 = Color3.fromRGB(50, 0, 0)
+botaoTakeda.TextColor3 = Color3.fromRGB(255, 215, 0)
+botaoTakeda.Font = Enum.Font.Arcade
+botaoTakeda.TextScaled = true
+botaoTakeda.Text = "🔱 Virar Takeda 🔱"
+botaoTakeda.Parent = frame
+
+local uiCornerBtn = Instance.new("UICorner")
+uiCornerBtn.CornerRadius = UDim.new(0, 15)
+uiCornerBtn.Parent = botaoTakeda
+
+local strokeBtn = Instance.new("UIStroke")
+strokeBtn.Thickness = 2
+strokeBtn.Color = Color3.fromRGB(255, 0, 0)
+strokeBtn.Parent = botaoTakeda
+
+-- Função para virar Takeda
+botaoTakeda.MouseButton1Click:Connect(function()
+	local args = {"Takeda"}
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ChangeCharacter"):FireServer(unpack(args))
+end)
+
+-- Botão abrir/fechar para celular com símbolo Mortal Kombat
+local botaoMenu = Instance.new("TextButton")
+botaoMenu.Size = UDim2.new(0, 60, 0, 60)
+botaoMenu.Position = UDim2.new(0, 20, 0, 20)
+botaoMenu.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+botaoMenu.TextColor3 = Color3.fromRGB(255, 0, 0)
+botaoMenu.Font = Enum.Font.Arcade
+botaoMenu.TextScaled = true
+botaoMenu.Text = "🐉" -- símbolo do dragão, clássico Mortal Kombat
+botaoMenu.Parent = screenGui
+
+local cornerMenu = Instance.new("UICorner")
+cornerMenu.CornerRadius = UDim.new(0, 15)
+cornerMenu.Parent = botaoMenu
+
+local strokeMenu = Instance.new("UIStroke")
+strokeMenu.Thickness = 2
+strokeMenu.Color = Color3.fromRGB(212, 175, 55) -- dourado
+strokeMenu.Parent = botaoMenu
+
+botaoMenu.MouseButton1Click:Connect(function()
+	frame.Visible = not frame.Visible
+end)
+
+-- Botão de abrir/fechar painel com teclado (opcional)
+local UserInputService = game:GetService("UserInputService")
+UserInputService.InputBegan:Connect(function(input, gp)
+	if input.KeyCode == Enum.KeyCode.M and not gp then
+		frame.Visible = not frame.Visible
+	end
+end)
+
+-- Deixar o painel arrastável (flutuante)
+frame.Active = true
+frame.Draggable = true
+
+-- Assinatura
+local assinatura = Instance.new("TextLabel")
+assinatura.Size = UDim2.new(1, 0, 0, 20)
+assinatura.Position = UDim2.new(0, 0, 1, -25)
+assinatura.BackgroundTransparency = 1
+assinatura.Text = "Feito por Thi"
+assinatura.TextColor3 = Color3.fromRGB(255, 215, 0)
+assinatura.Font = Enum.Font.Arcade
+assinatura.TextScaled = true
+assinatura.TextStrokeColor3 = Color3.fromRGB(255, 0, 0)
+assinatura.TextStrokeTransparency = 0.3
+assinatura.Parent = frame
